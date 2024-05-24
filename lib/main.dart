@@ -5,10 +5,7 @@ import 'package:assempleyapp/helpers/allRoutes.dart';
 import 'package:assempleyapp/helpers/constantRoutes.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
