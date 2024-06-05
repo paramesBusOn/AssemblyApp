@@ -8,8 +8,11 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 
 class QrScanner extends StatefulWidget {
-  QrScanner({Key? key, required this.event, required this.type})
-      : super(key: key);
+  QrScanner(
+      {super.key,
+      required this.event,
+      required this.type,
+     });
   String event;
   String type;
   @override
@@ -29,12 +32,11 @@ class QrScannerState extends State<QrScanner> {
   List<Barcode> barcodes = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       barcodes.clear();
     });
-    log("barcodes:::" + barcodes.toString());
+    log("barcodes:::$barcodes");
   }
 
   DateTime? currentBackPressTime;
@@ -42,7 +44,7 @@ class QrScannerState extends State<QrScanner> {
     DateTime now = DateTime.now();
 
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
       Get.back();
       return Future.value(true);
@@ -57,7 +59,7 @@ class QrScannerState extends State<QrScanner> {
     return WillPopScope(
       onWillPop: onbackpress,
       child: Scaffold(
-        appBar: AppBar(title: Text("Mobile Scanner")),
+        appBar: AppBar(title: const Text("Mobile Scanner")),
         body: MobileScanner(
           controller: cameraController,
           onDetect: (capture) {
@@ -73,7 +75,7 @@ class QrScannerState extends State<QrScanner> {
                     type: widget.type));
                 context
                     .read<AssemblyController>()
-                    .insertData(temp, context, theme);
+                    .insertData(temp, context, theme,);
               }
               // context.read<OrderNewController>().scanneddataget(barcode.rawValue ??'',context);
             }

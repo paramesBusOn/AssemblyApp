@@ -1,9 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:collection';
 import 'dart:io';
 
 import 'package:assempleyapp/Configurations/Screen.dart';
 import 'package:assempleyapp/Controller/assemblyController.dart';
 import 'package:assempleyapp/Pages/Assemplypage/Widgets/QrScannar.dart';
+import 'package:assempleyapp/Pages/Assemplypage/Widgets/RegisterPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'dart:math' as math;
@@ -133,9 +136,86 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                           ),
                           Center(
                             child: SizedBox(
-                              height: Screens.padingHeight(context) * 0.2,
+                              height: Screens.padingHeight(context) * 0.3,
                               child: Column(
                                 children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height:
+                                              Screens.padingHeight(context) *
+                                                  0.05,
+                                          width: Screens.width(context) * 0.4,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              // color:
+                                              //     Theme.of(context).colorScheme.primary,
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Colors.orange.shade300,
+
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  // Theme.of(context).colorScheme.primary,
+
+                                                  // Theme.of(context)
+                                                  //     .colorScheme
+                                                  //     .primary
+                                                  //     .withOpacity(0.7),
+                                                ],
+                                              ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset:
+                                                      const Offset(3.0, 4.0),
+                                                  blurRadius: 4,
+                                                  color: Colors.black
+                                                      .withOpacity(0.3),
+                                                )
+                                              ]),
+                                          child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                  foregroundColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(Colors.white),
+                                                  shadowColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.transparent),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                              Color>(
+                                                          Colors.transparent),
+                                                  shape: MaterialStateProperty
+                                                      .all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ))),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: ((context) =>
+                                                            const RegisterPage())));
+                                              },
+                                              child: const Text(
+                                                'Register',
+                                                style: TextStyle(fontSize: 18),
+                                              )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height:
+                                        Screens.padingHeight(context) * 0.02,
+                                  ),
                                   Container(
                                     width: Screens.width(context),
                                     decoration: BoxDecoration(
@@ -181,7 +261,7 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                   ),
                                   SizedBox(
                                     height:
-                                        Screens.padingHeight(context) * 0.03,
+                                        Screens.padingHeight(context) * 0.05,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -244,7 +324,7 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                                       builder: ((context) =>
                                                           QrScanner(
                                                             event: 'Assembly',
-                                                            type: 'Breakfast',
+                                                            type: 'Breakfast', 
                                                           ))));
                                             },
                                             child: const Text(
@@ -329,6 +409,9 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                 .primary
                                 .withOpacity(0.5),
                           ),
+                          SizedBox(
+                            height: Screens.padingHeight(context) * 0.02,
+                          ),
                           Container(
                             height: Screens.padingHeight(context) * 0.05,
                             width: Screens.width(context) * 0.8,
@@ -379,7 +462,7 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                       MaterialPageRoute(
                                           builder: ((context) => QrScanner(
                                                 event: 'Shiksha',
-                                                type: 'Lunch',
+                                                type: 'Shiksha',
                                               ))));
                                 },
                                 child: const Text(
@@ -388,7 +471,7 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                 )),
                           ),
                           SizedBox(
-                            height: Screens.padingHeight(context) * 0.09,
+                            height: Screens.padingHeight(context) * 0.06,
                           ),
                           Container(
                             height: Screens.padingHeight(context) * 0.05,
@@ -440,7 +523,7 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                       MaterialPageRoute(
                                           builder: ((context) => QrScanner(
                                                 event: 'Jalak',
-                                                type: 'Dinner',
+                                                type: 'Jalak',
                                               ))));
                                 },
                                 child: const Text(
@@ -448,9 +531,12 @@ class AssemblyPagStateState extends State<AssemblyPagState> {
                                   style: TextStyle(fontSize: 18),
                                 )),
                           ),
+                          SizedBox(
+                            height: Screens.padingHeight(context) * 0.02,
+                          ),
                           const Divider(),
                           SizedBox(
-                            height: Screens.padingHeight(context) * 0.1,
+                            height: Screens.padingHeight(context) * 0.08,
                           ),
                           Container(
                             height: Screens.padingHeight(context) * 0.04,

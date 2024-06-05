@@ -1,5 +1,9 @@
+
+import 'dart:io';
+
 import 'package:assempleyapp/Configurations/Screen.dart';
 import 'package:assempleyapp/Controller/assemblyController.dart';
+import 'package:assempleyapp/Controller/registerController.dart';
 import 'package:assempleyapp/Pages/Assemplypage/Screens/ConfigurationScreen.dart';
 import 'package:assempleyapp/helpers/allRoutes.dart';
 import 'package:assempleyapp/helpers/constantRoutes.dart';
@@ -12,11 +16,22 @@ import 'package:provider/provider.dart';
 import 'helpers/Utils.dart';
 import 'themes/theme_manager.dart';
 
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+   HttpOverrides.global = MyHttpOverrides();
+
   networkcheck();
   runApp(const MyApp());
 }
+
 
 networkcheck() async {
   Connectivity()
@@ -47,27 +62,26 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     setState(() {
       Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) async {
-      if (result.name == 'none') {
-        if (!mounted) return;
+          .onConnectivityChanged
+          .listen((ConnectivityResult result) async {
+        if (result.name == 'none') {
+          if (!mounted) return;
 
-        setState(() {
-          Utils.network = 'none';
-        });
-        print("network none");
-      } else {
-        await Future.delayed(const Duration(seconds: 5));
-        if (!mounted) return;
+          setState(() {
+            Utils.network = 'none';
+          });
+          print("network none");
+        } else {
+          await Future.delayed(const Duration(seconds: 5));
+          if (!mounted) return;
 
-        setState(() {
-          Utils.network = 'true';
-        });
-        print("network Online");
-      }
+          setState(() {
+            Utils.network = 'true';
+          });
+          print("network Online");
+        }
+      });
     });
-    });
-    
   }
 
   @override
@@ -76,6 +90,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeManager()),
         ChangeNotifierProvider(create: (_) => AssemblyController()),
+        ChangeNotifierProvider(create: (_) => RegisterController()),
       ],
       child: Consumer<ThemeManager>(builder: (context, themes, Widget? child) {
         return GetMaterialApp(
@@ -83,7 +98,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo',
           theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
-                  seedColor: Color.fromARGB(255, 41, 99, 2)),
+                  seedColor: const Color.fromARGB(255, 41, 99, 2)),
               useMaterial3: true,
               fontFamily: 'LeagueSpartan_Font'),
           getPages: Routes.allRoutes,
@@ -250,8 +265,9 @@ class _NoInternetState extends State<NoInternet> with TickerProviderStateMixin {
                     IconButton(
                         onPressed: () {
                           setState(() {
-                            if(Utils.network!='none'){
-Get.offAllNamed(ConstantRoutes.dashboard)  ;                          }
+                            if (Utils.network != 'none') {
+                              Get.offAllNamed(ConstantRoutes.dashboard);
+                            }
                           });
                         },
                         icon: const Icon(Icons.refresh))
