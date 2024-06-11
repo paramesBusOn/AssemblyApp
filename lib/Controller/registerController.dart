@@ -129,7 +129,7 @@ class RegisterController extends ChangeNotifier {
     "Palghat East",
     "Parur",
     "Pollachi",
-    "Tirupur",
+    "Royal Heritage",
     "Tellicherry",
     "Tirupur",
     "Tirupur South",
